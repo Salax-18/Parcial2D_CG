@@ -34,6 +34,11 @@ public class PlayerController : MonoBehaviour
 
     private void Move(){
         rb.MovePosition(rb.position + movement *(moveSpeed * Time.fixedDeltaTime));
+       if (movement.x != 0)
+       {
+          transform.localScale = new Vector3(movement.x > 0 ? -1 : 1, 1, 1);
+       }
+    
     }
 
     void Start()
