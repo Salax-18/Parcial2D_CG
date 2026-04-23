@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,83 +7,64 @@ public class CombateControl : MonoBehaviour
     public int cantidadEnemigos = 4, cantidadPlayers = 4;
     public int EnemySelect, PlayerSelect;
     public GameObject enemigos, players;
-    bool turno = true;
-    bool resolviendoTurno = false;
 
+    private bool esperandoInputJugador = false;
+    private bool resolviendoTurno = false;
+    private bool combateIniciado = false;
+    private bool playerFuePrimero = false; // resultado de iniciativa de este turno
+
+    // ── Run ──────────────────────────────────────────────────────────────────
     private void Start()
     {
-        Character stats = players.transform.GetChild(PlayerSelect).GetComponent<Character>();
-        stats.Select(true);
+        // Titila el player 0 y el enemigo 0 al inicio
+        players.transform.GetChild(PlayerSelect).GetComponent<Character>().Select(true);
+        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
+        esperandoInputJugador = true; // listo para elegir enemigo
     }
 
     private void Update()
     {
-        if (cantidadEnemigos >= 0)
+        if (!esperandoInputJugador || cantidadEnemigos <= 0) return;
+
+        if (Keyboard.current.downArrowKey.wasPressedThisFrame)
         {
-            if (Keyboard.current.downArrowKey.wasPressedThisFrame)
-            {
-                enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
-                EnemySelect--;
-                EnemySelect = Mathf.Clamp(EnemySelect, 0, cantidadEnemigos - 1);
-                enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
-            }
-            if (Keyboard.current.upArrowKey.wasPressedThisFrame)
-            {
-                enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
-                EnemySelect++;
-                EnemySelect = Mathf.Clamp(EnemySelect, 0, cantidadEnemigos - 1);
-                enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
-            }
+            enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
+            EnemySelect = Mathf.Clamp(EnemySelect - 1, 0, cantidadEnemigos - 1);
+            enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
+        }
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+        {
+            enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
+            EnemySelect = Mathf.Clamp(EnemySelect + 1, 0, cantidadEnemigos - 1);
+            enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
         }
     }
 
-    public void IniciarCombate()
-    {
-        Debug.Log($"IniciarCombate llamado — turno:{turno} resolviendoTurno:{resolviendoTurno}");
-        if (turno && !resolviendoTurno)
-        {
-            resolviendoTurno = true;
-            StartCoroutine(ResolverIniciativa());
-        }
-    }
-
+    // ── Botón Atacar ─────────────────────────────────────────────────────────
     public void Atacar()
     {
-        if (turno && cantidadPlayers >= 0)
+        if (!esperandoInputJugador || resolviendoTurno) return;
+
+        // Apagar titileo de ambos mientras se resuelve
+        players.transform.GetChild(PlayerSelect).GetComponent<Character>().Select(false);
+        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
+
+        esperandoInputJugador = false;
+        resolviendoTurno = true;
+
+        if (!combateIniciado)
         {
-            Character character = players.transform.GetChild(PlayerSelect).GetComponent<Character>();
-            character.Atacar();
-
-            if (PlayerSelect == cantidadPlayers)
-            {
-                PlayerSelect = 0;
-                turno = false;
-                StartCoroutine(AtaqueEnemigos());
-
-            }
-            else
-            {
-                PlayerSelect++;
-
-                character.Select(false);
-                character = players.transform.GetChild(PlayerSelect).GetComponent<Character>();
-                character.Select(true);
-            }
+            combateIniciado = true;
+            StartCoroutine(ResolverIniciativaYTurno());
+        }
+        else
+        {
+            StartCoroutine(TurnoDelPlayer());
         }
     }
 
-    IEnumerator AtaqueEnemigos()
-    {
-        yield return new WaitForSecondsRealtime(1f);
-        for (int i = 0; i < cantidadEnemigos; i++)
-        {
-            enemigos.transform.GetChild(i).GetComponent<Character>().Atacar();
-            yield return new WaitForSecondsRealtime(1f);
-        }
-        turno = true;
-    }
-
-    IEnumerator ResolverIniciativa()
+    // ── Iniciativa (solo primer turno de la ronda) ───────────────────────────
+    IEnumerator ResolverIniciativaYTurno()
     {
         int dadoPlayer, dadoEnemigo;
         do
@@ -97,78 +76,122 @@ public class CombateControl : MonoBehaviour
         }
         while (dadoPlayer == dadoEnemigo);
 
-        if (dadoPlayer > dadoEnemigo)
+        playerFuePrimero = dadoPlayer > dadoEnemigo;
+        Debug.Log(playerFuePrimero ? "Player va primero" : "Enemigo va primero");
+
+        if (playerFuePrimero)
         {
-            Debug.Log("Player ataca primero");
-            StartCoroutine(TurnoPlayer(0));
+            // Player ataca → luego enemigo responde
+            yield return StartCoroutine(AtaquePlayer());
+            yield return StartCoroutine(AtaqueEnemigo(EnemySelect));
         }
         else
         {
-            Debug.Log("Enemigo ataca primero");
-            StartCoroutine(TurnoEnemigos(true));
+            // Enemigo ataca → luego player responde
+            yield return StartCoroutine(AtaqueEnemigo(EnemySelect));
+            yield return StartCoroutine(AtaquePlayer());
         }
 
         resolviendoTurno = false;
+        VerificarYAvanzar();
     }
 
-    IEnumerator TurnoPlayer(int indicePlayer)
+    // ── Turno normal (sin tirar iniciativa) ──────────────────────────────────
+    IEnumerator TurnoDelPlayer()
     {
-        if (indicePlayer >= cantidadPlayers + 1)
+        if (playerFuePrimero)
         {
-            StartCoroutine(TurnoEnemigos(false));
-            yield break;
-        }
-
-        Character player = players.transform.GetChild(indicePlayer).GetComponent<Character>();
-
-        players.transform.GetChild(PlayerSelect).GetComponent<Character>().Select(false);
-        PlayerSelect = indicePlayer;
-        player.Select(true);
-
-        int tiradaExito = Random.Range(1, 11);
-        Debug.Log($"Player {indicePlayer} tirada de éxito: {tiradaExito}");
-        yield return new WaitForSecondsRealtime(0.5f);
-
-        if (tiradaExito <= 3)
-        {
-            Debug.Log($"Player {indicePlayer} falló la tirada de éxito");
-            StartCoroutine(TurnoEnemigos(true));
-            yield break;
-        }
-
-        int dado1 = Random.Range(1, 10);
-        int dado2 = Random.Range(1, 10);
-        int combinado = dado1 * 10 + dado2;
-        Debug.Log($"Player {indicePlayer} tirada de ataque: {dado1} y {dado2} → {combinado}");
-        yield return new WaitForSecondsRealtime(0.5f);
-
-        if (combinado < 50)
-        {
-            Debug.Log($"Player {indicePlayer} falló el ataque ({combinado} < 50)");
-        }
-        else if (combinado > 90)
-        {
-            Debug.Log($"Player {indicePlayer} atacó pero sin daño ({combinado} > 90)");
-            player.Atacar(sinDaño: true);
+            yield return StartCoroutine(AtaquePlayer());
+            yield return StartCoroutine(AtaqueEnemigo(EnemySelect));
         }
         else
         {
-            Debug.Log($"Player {indicePlayer} ataca con daño ({combinado})");
-            yield return StartCoroutine(ElegirYAtacar(player)); ;
+            yield return StartCoroutine(AtaqueEnemigo(EnemySelect));
+            yield return StartCoroutine(AtaquePlayer());
         }
 
-        yield return new WaitForSecondsRealtime(1f);
-        StartCoroutine(TurnoPlayer(indicePlayer + 1));
+        resolviendoTurno = false;
+        VerificarYAvanzar();
     }
 
+    // ── Lógica de ataque del player ──────────────────────────────────────────
+    // Diagrama: lanza 1 dado (1-10). Si dado >= 4 y <= 10 → puede atacar. Si no → Falla.
+    // Si puede atacar: lanza 2 dados, concatena como texto → si >50 y <90 → realiza daño.
+    IEnumerator AtaquePlayer()
+    {
+        Character player = players.transform.GetChild(PlayerSelect).GetComponent<Character>();
+
+        int dado = Random.Range(1, 11);
+        Debug.Log($"Player {PlayerSelect} — dado de éxito: {dado}");
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (dado < 4) // Falla (1, 2 o 3)
+        {
+            Debug.Log($"Player {PlayerSelect} falló (dado {dado} < 4)");
+            yield break;
+        }
+
+        // Lanza 2 dados y los concatena como texto (ej: 7 y 3 → 73)
+        int d1 = Random.Range(1, 10);
+        int d2 = Random.Range(1, 10);
+        int combinado = d1 * 10 + d2;
+        Debug.Log($"Player {PlayerSelect} — dados: {d1} y {d2} → {combinado}");
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (combinado > 50 && combinado < 90)
+        {
+            Debug.Log($"Player {PlayerSelect} — ataque exitoso ({combinado}), eligiendo ataque...");
+            yield return StartCoroutine(ElegirYAtacar(player));
+        }
+        else
+        {
+            Debug.Log($"Player {PlayerSelect} — ataque fallido por rango ({combinado})");
+        }
+    }
+
+    // ── Lógica de ataque del enemigo ─────────────────────────────────────────
+    IEnumerator AtaqueEnemigo(int idx)
+    {
+        if (idx >= cantidadEnemigos) yield break;
+
+        Transform t = enemigos.transform.GetChild(idx);
+        if (t == null) yield break;
+        Character enemigo = t.GetComponent<Character>();
+        if (enemigo == null) yield break;
+
+        int dado = Random.Range(1, 11);
+        Debug.Log($"Enemigo {idx} — dado de éxito: {dado}");
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (dado < 4)
+        {
+            Debug.Log($"Enemigo {idx} falló (dado {dado} < 4)");
+            yield break;
+        }
+
+        int d1 = Random.Range(1, 10);
+        int d2 = Random.Range(1, 10);
+        int combinado = d1 * 10 + d2;
+        Debug.Log($"Enemigo {idx} — dados: {d1} y {d2} → {combinado}");
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (combinado > 50 && combinado < 90)
+        {
+            Debug.Log($"Enemigo {idx} — ataque exitoso ({combinado})");
+            enemigo.Atacar(sinDaño: false);
+            yield return new WaitForSecondsRealtime(1f);
+        }
+        else
+        {
+            Debug.Log($"Enemigo {idx} — ataque fallido por rango ({combinado})");
+        }
+    }
+
+    // ── UI: elegir ataque y aplicar daño ────────────────────────────────────
     IEnumerator ElegirYAtacar(Character player)
     {
         int ataqueElegido = -1;
-
-        CombateUI.Instance.MostrarAtaques(player.data, (indice) => {
-            ataqueElegido = indice;
-        });
-
+        CombateUI.Instance.MostrarAtaques(player.data, (indice) => { ataqueElegido = indice; });
         yield return new WaitUntil(() => ataqueElegido >= 0);
 
         var ataque = player.data.ataques[ataqueElegido];
@@ -176,14 +199,12 @@ public class CombateControl : MonoBehaviour
         int totalBase = 0;
 
         foreach (var dado in ataque.dados)
-        {
             for (int i = 0; i < dado.cantidadDados; i++)
             {
                 int resultado = Random.Range(1, dado.caras + 1);
                 totalBase += resultado;
                 log += $"d{dado.caras}: {resultado}\n";
             }
-        }
 
         int totalConFuerza = Mathf.RoundToInt(totalBase * (1f + player.data.fuerza / 100f));
         log += $"Total base: {totalBase}\nCon fuerza ({player.data.fuerza}%): <b>{totalConFuerza}</b>";
@@ -192,53 +213,46 @@ public class CombateControl : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         CombateUI.Instance.OcultarResultado();
 
-        Character objetivo = enemigos.transform.GetChild(EnemySelect).GetComponent<Character>();
-        objetivo.Damage(totalConFuerza);
+        if (EnemySelect < cantidadEnemigos)
+            enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Damage(totalConFuerza);
     }
 
-    IEnumerator TurnoEnemigos(bool volverAPlayer)
+    // ── Verificar fin de combate o avanzar al siguiente player ───────────────
+    // Diagrama: ¿Hay enemigos? → No → Terminar. Sí → ¿Es el último player? → No → Pasar al siguiente
+    void VerificarYAvanzar()
     {
-        for (int i = 0; i < cantidadEnemigos; i++)
+        // ¿Hay enemigos?
+        if (cantidadEnemigos <= 0)
         {
-            Character enemigo = enemigos.transform.GetChild(i).GetComponent<Character>();
-
-            int tiradaExito = Random.Range(1, 11);
-            Debug.Log($"Enemigo {i} tirada de éxito: {tiradaExito}");
-            yield return new WaitForSecondsRealtime(0.5f);
-
-            if (tiradaExito <= 3)
-            {
-                Debug.Log($"Enemigo {i} falló la tirada de éxito");
-                if (volverAPlayer)
-                {
-                    StartCoroutine(TurnoPlayer(PlayerSelect + 1));
-                    yield break;
-                }
-                continue;
-            }
-
-            int dado1 = Random.Range(1, 10);
-            int dado2 = Random.Range(1, 10);
-            int combinado = dado1 * 10 + dado2;
-            Debug.Log($"Enemigo {i} tirada de ataque: {dado1} y {dado2} → {combinado}");
-            yield return new WaitForSecondsRealtime(0.5f);
-
-            if (combinado < 50)
-                Debug.Log($"Enemigo {i} falló el ataque ({combinado} < 50)");
-            else if (combinado > 90)
-            {
-                Debug.Log($"Enemigo {i} atacó pero sin daño ({combinado} > 90)");
-                enemigo.Atacar(sinDaño: true);
-            }
-            else
-            {
-                Debug.Log($"Enemigo {i} ataca con daño ({combinado})");
-                enemigo.Atacar(sinDaño: false);
-            }
-
-            yield return new WaitForSecondsRealtime(1f);
+            Debug.Log("=== COMBATE TERMINADO — sin enemigos ===");
+            // Aquí cambiar de escena
+            return;
         }
 
-        turno = true;
+        // ¿Es el último player?
+        if (PlayerSelect >= cantidadPlayers - 1)
+        {
+            // Fin de ronda — volver al primero, nueva iniciativa
+            Debug.Log("=== FIN DE RONDA ===");
+            players.transform.GetChild(PlayerSelect).GetComponent<Character>().Select(false);
+            PlayerSelect = 0;
+            combateIniciado = false; // próximo Atacar tirará iniciativa de nuevo
+        }
+        else
+        {
+            // Pasar al siguiente player
+            players.transform.GetChild(PlayerSelect).GetComponent<Character>().Select(false);
+            PlayerSelect++;
+        }
+
+        // Preparar siguiente turno
+        PlayerSelect = Mathf.Clamp(PlayerSelect, 0, cantidadPlayers - 1);
+        EnemySelect = Mathf.Clamp(EnemySelect, 0, cantidadEnemigos - 1);
+
+        players.transform.GetChild(PlayerSelect).GetComponent<Character>().Select(true);
+        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
+
+        esperandoInputJugador = true;
+        Debug.Log($">>> Player {PlayerSelect} listo — selecciona enemigo y presiona Atacar");
     }
 }
