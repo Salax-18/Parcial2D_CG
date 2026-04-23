@@ -13,12 +13,12 @@ public class ItemRecolectable : MonoBehaviour, IInteractable
 
     private void Recoger()
     {
-        Debug.Log($"Has recolectado: {nombreItem} x{cantidad}");
+        Debug.Log("Ejecutando Recoger() para: " + nombreItem);
 
-        // Aquí conectamos con el sistema de inventario (ver punto 3)
+        // Solo enviamos el nombre porque tu inventario ya tiene el "ParsearItem"
         Inventario.Instance.AgregarItem(nombreItem);
 
-        // El objeto desaparece del mundo
+        // Esta línea DEBE ejecutarse para que el objeto desaparezca
         Destroy(gameObject);
     }
 }
