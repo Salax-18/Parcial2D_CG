@@ -19,25 +19,15 @@ public class Character : MonoBehaviour
         combateControl = GameObject.Find("CombateControl").GetComponent<CombateControl>();
         if (tipo)
         {
-            objetivos = GameObject.Find("Enemigos");
+            objetivos = GameObject.Find("enemigos");
 
         }
         else
         {
-            objetivos = GameObject.Find("Players");
+            objetivos = GameObject.Find("players");
         }
         if (data != null)
             vidaActual = data.vidaMaxima;
-    }
-
-
-    public void Atacar()
-    {
-        StartCoroutine(AnimAtaque());
-        if (tipo) objetivo = combateControl.EnemySelect;
-        else objetivo = combateControl.PlayerSelect;
-        if (combateControl.cantidadEnemigos >= 0 && combateControl.cantidadPlayers >= 0)
-            objetivos.transform.GetChild(objetivo).GetComponent<Character>().Damage(TirarAtaque(0));
     }
 
     public void Atacar(bool sinDaño = false)
