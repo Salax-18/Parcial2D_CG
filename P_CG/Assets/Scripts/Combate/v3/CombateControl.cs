@@ -37,8 +37,12 @@ public class CombateControl : MonoBehaviour
                 enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
             }
         }
+    }
 
-        if (turno && !resolviendoTurno && Keyboard.current.spaceKey.wasPressedThisFrame)
+    public void IniciarCombate()
+    {
+        Debug.Log($"IniciarCombate llamado — turno:{turno} resolviendoTurno:{resolviendoTurno}");
+        if (turno && !resolviendoTurno)
         {
             resolviendoTurno = true;
             StartCoroutine(ResolverIniciativa());
