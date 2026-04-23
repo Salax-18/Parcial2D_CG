@@ -326,9 +326,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 667858051}
     m_Modifications:
+    - target: {fileID: 329827219342698438, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Yellow (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8923697060828832588, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -805,9 +813,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 667858051}
     m_Modifications:
+    - target: {fileID: 329827219342698438, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Yellow (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8923697060828832588, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1053,6 +1069,14 @@ PrefabInstance:
     - target: {fileID: 2928265930380993855, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Blue (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2928265930380993855, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079368788869252808, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2560,6 +2584,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.38228396}
   m_Size: {x: 0.5, y: 0.8190717}
   m_Direction: 0
+--- !u!114 &521616150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521616141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f496e6dd9bcfb844a3e6befca73e565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
+  radioInteraccion: 1.5
+  capaInteractuable:
+    serializedVersion: 2
+    m_Bits: 8
+  teclaInteraccion: 101
 --- !u!1001 &528365059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46555,6 +46596,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 697610598}
+  - component: {fileID: 697610600}
+  - component: {fileID: 697610599}
   m_Layer: 0
   m_Name: Inventario
   m_TagString: Untagged
@@ -46577,6 +46620,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &697610599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697610597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5051633975ece7a48b5ef0036f3e9e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventario
+--- !u!114 &697610600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697610597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5051633975ece7a48b5ef0036f3e9e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventario
 --- !u!4 &705410267 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 720809665380454775, guid: 8c0001b67f347e544be5e71df8d8275f, type: 3}
@@ -46590,9 +46657,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 667858051}
     m_Modifications:
+    - target: {fileID: 329827219342698438, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Yellow (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8923697060828832588, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -46921,6 +46996,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Blue (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2928265930380993855, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079368788869252808, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -46942,6 +47025,14 @@ PrefabInstance:
     - target: {fileID: 1066846313929215239, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Red (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066846313929215239, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773497474719826119, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4875006407441069724, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -47143,6 +47234,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Green (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1830307436026463734, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.4700012
@@ -47182,6 +47277,10 @@ PrefabInstance:
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6933117711319646472, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -48301,6 +48400,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Blue (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2928265930380993855, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079368788869252808, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -48942,6 +49049,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Red (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1066846313929215239, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773497474719826119, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4875006407441069724, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.9500008
@@ -49277,6 +49392,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Green (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1830307436026463734, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.4700012
@@ -49317,6 +49436,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6933117711319646472, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -49343,6 +49466,10 @@ PrefabInstance:
     - target: {fileID: 1830307436026463734, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Green (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1830307436026463734, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49383,6 +49510,10 @@ PrefabInstance:
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6933117711319646472, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -49550,9 +49681,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 667858051}
     m_Modifications:
+    - target: {fileID: 329827219342698438, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Yellow (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8923697060828832588, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51153,6 +51292,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Red (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1066846313929215239, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773497474719826119, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4875006407441069724, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.9500008
@@ -51353,6 +51500,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Green (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1830307436026463734, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.4700012
@@ -51392,6 +51543,10 @@ PrefabInstance:
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6933117711319646472, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -51528,6 +51683,14 @@ PrefabInstance:
     - target: {fileID: 2928265930380993855, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Blue (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2928265930380993855, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079368788869252808, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -52347,6 +52510,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Red (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1066846313929215239, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773497474719826119, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4875006407441069724, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.9500008
@@ -52572,6 +52743,14 @@ PrefabInstance:
     - target: {fileID: 1066846313929215239, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Red (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066846313929215239, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773497474719826119, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4875006407441069724, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53094,6 +53273,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Blue (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2928265930380993855, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079368788869252808, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -53203,6 +53390,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1626477297107032035, guid: b50df39440d900c498f1a2233469e4b8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 521616146}
+    - targetCorrespondingSourceObject: {fileID: 1626477297107032035, guid: b50df39440d900c498f1a2233469e4b8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 521616150}
   m_SourcePrefab: {fileID: 100100000, guid: b50df39440d900c498f1a2233469e4b8, type: 3}
 --- !u!1 &1523098963
 GameObject:
@@ -53714,9 +53904,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 667858051}
     m_Modifications:
+    - target: {fileID: 329827219342698438, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Yellow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8923697060828832588, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53862,6 +54060,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Green (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1830307436026463734, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.4700012
@@ -53901,6 +54103,10 @@ PrefabInstance:
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6933117711319646472, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -64991,6 +65197,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 2928265930380993855, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079368788869252808, guid: f75f46cb55c3d0d4793b29d6c2b89f04, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -65110,9 +65324,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.28
       objectReference: {fileID: 0}
+    - target: {fileID: 5376095409570456163, guid: ddb104373234e9b449c9162c51a3c2a3, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7318342326835280612, guid: ddb104373234e9b449c9162c51a3c2a3, type: 3}
       propertyPath: m_Name
       value: Env_Chess_Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318342326835280612, guid: ddb104373234e9b449c9162c51a3c2a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -65130,6 +65352,14 @@ PrefabInstance:
     - target: {fileID: 1066846313929215239, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066846313929215239, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773497474719826119, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4875006407441069724, guid: 263e6455db9c8cb409f5551c0eabbacc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -65189,9 +65419,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 667858051}
     m_Modifications:
+    - target: {fileID: 329827219342698438, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_Name
       value: Item_Shroom_Yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115521459458373326, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8923697060828832588, guid: d0744eece41ced340bb3d5d119761ec2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -65321,6 +65559,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Shroom_Green
       objectReference: {fileID: 0}
+    - target: {fileID: 1830307436026463734, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.4700012
@@ -65360,6 +65602,10 @@ PrefabInstance:
     - target: {fileID: 4832623384041179082, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6933117711319646472, guid: 8be6f32c09a32be4f842ec233a5cd16f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
