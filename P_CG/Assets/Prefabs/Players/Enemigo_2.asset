@@ -22,5 +22,7 @@ MonoBehaviour:
     dados:
     - cantidadDados: 1
       caras: 4
-  esEnemigo: 0
-  lootPosible: []
+  esEnemigo: 1
+  lootPosible:
+  - nombreItem: Cofre
+    probabilidad: 0.35

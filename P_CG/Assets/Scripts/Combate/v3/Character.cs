@@ -40,6 +40,20 @@ public class Character : MonoBehaviour
             objetivos.transform.GetChild(objetivo).GetComponent<Character>().Damage(TirarAtaque(0));
     }
 
+    public void Atacar(bool sinDaño = false)
+    {
+        StartCoroutine(AnimAtaque());
+        if (tipo) objetivo = combateControl.EnemySelect;
+        else objetivo = combateControl.PlayerSelect;
+        if (combateControl.cantidadEnemigos >= 0 && combateControl.cantidadPlayers >= 0)
+        {
+            if (!sinDaño)
+                objetivos.transform.GetChild(objetivo).GetComponent<Character>().Damage(TirarAtaque(0));
+            else
+                Debug.Log("Ataque sin daño — solo animación");
+        }
+    }
+
     public void Damage(int damage)
     {
         // Aplicar defensa
@@ -79,7 +93,7 @@ public class Character : MonoBehaviour
         foreach (var item in data.lootPosible)
         {
             if (Random.value <= item.probabilidad)
-                Debug.Log($"¡{data.nombrePersonaje} soltó: {item.nombreItem}!");
+                Inventario.Instance.AgregarItem(item.nombreItem);
         }
     }
 

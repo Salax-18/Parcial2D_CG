@@ -4,14 +4,14 @@ using UnityEngine;
 public class AtaqueDado
 {
     public string nombreAtaque;
-    public DadoTiro[] dados; // ej: 1d10 + 1d4
+    public DadoTiro[] dados;
 }
 
 [System.Serializable]
 public class DadoTiro
 {
     public int cantidadDados;
-    public int caras; // d4, d6, d8, d10, d12, d20
+    public int caras;
 }
 
 [CreateAssetMenu(fileName = "NuevoPersonaje", menuName = "Combate/CharacterData")]
@@ -23,8 +23,8 @@ public class CharacterData : ScriptableObject
 
     [Header("Stats Base")]
     public int vidaMaxima;
-    [Range(0, 100)] public int defensa;   // % de reducción de daño
-    [Range(0, 100)] public int fuerza;    // % de aumento de daño
+    [Range(0, 100)] public int defensa;
+    [Range(0, 100)] public int fuerza;
 
     [Header("Ataques")]
     public AtaqueDado[] ataques;
@@ -39,5 +39,5 @@ public class LootItem
 {
     public string nombreItem;
     [Range(0f, 1f)]
-    public float probabilidad; // 0.0 a 1.0
+    public float probabilidad;
 }
