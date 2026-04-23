@@ -9674,7 +9674,7 @@ Transform:
   m_GameObject: {fileID: 793128750}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.005041612, w: 0.9999873}
-  m_LocalPosition: {x: 1.493, y: -6.68, z: 0}
+  m_LocalPosition: {x: 1.196, y: -7.1, z: 0}
   m_LocalScale: {x: 0.69471735, y: 0.9580329, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13506,7 +13506,7 @@ Transform:
   m_GameObject: {fileID: 1098272348}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.592, y: -6.71, z: 0}
+  m_LocalPosition: {x: 0.91, y: -7.86, z: 0}
   m_LocalScale: {x: -0.6461618, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -41261,7 +41261,7 @@ Transform:
   m_GameObject: {fileID: 1515538678}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.12, y: -0.74, z: 0}
+  m_LocalPosition: {x: 4.662, y: -0.74, z: 0}
   m_LocalScale: {x: -0.6461618, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -46989,7 +46989,7 @@ Transform:
   m_GameObject: {fileID: 1947836734}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.7366436, y: 0.63892984, z: -8.25791}
+  m_LocalPosition: {x: -1.8441002, y: 0.63892984, z: -9.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48726,7 +48726,7 @@ Transform:
   m_GameObject: {fileID: 2123078041}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.7366426, y: 0.63892984, z: -8.25791}
+  m_LocalPosition: {x: -1.8441002, y: 0.63892984, z: -9.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48745,7 +48745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
   TrackerSettings:
-    BindingMode: 5
+    BindingMode: 4
     PositionDamping: {x: 1, y: 1, z: 1}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
