@@ -17,9 +17,16 @@ public class PlayerController : MonoBehaviour
     private Vector2 movement;
     private Rigidbody2D rb;
 
+   
+    private Vector3 originalScale;
+
     private void Awake() {
         playerControls = new PlayerControls(); 
         rb = GetComponent<Rigidbody2D>();
+
+        
+        originalScale = transform.localScale;
+
         if (gameObject.name == "Player_2")
             leader = GameObject.Find("Player_1").GetComponent<PlayerController>();
 
@@ -67,24 +74,31 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + movement *(moveSpeed * Time.fixedDeltaTime));
        if (movement.x != 0)
        {
-          transform.localScale = new Vector3(movement.x > 0 ? -1 : 1, 1, 1);
+          transform.localScale = new Vector3(movement.x > 0 ? -originalScale.x : originalScale.x, originalScale.y, originalScale.z);
        }
     
     }
 
-   private void FollowLeader()
-{
+    private void FollowLeader()
+  {
     if (leader != null && leader.positionHistory.Count > delayIndex)
     {
-        bool leaderMoving = leader.positionHistory[0] != leader.positionHistory[1];
-
-        if (!leaderMoving)
+      
+        if (leader.positionHistory[0] == leader.positionHistory[1])
             return;
 
-        int index = delayIndex;
-        transform.position = leader.positionHistory[index];
+        Vector3 targetPos = leader.positionHistory[delayIndex];
+
+        
+        if (targetPos.x > transform.position.x)
+            transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
+        else if (targetPos.x < transform.position.x)
+            transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
+
+        
+        transform.position = targetPos;
     }
-}
+  }
 
 
     void Start()
