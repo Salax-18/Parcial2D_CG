@@ -1,57 +1,50 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class Character : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     GameObject objetivos;
     CombateControl combateControl;
 
     public CharacterData data;
     public int vidaActual;
     int objetivo;
-
     public bool tipo;
 
     private void Start()
     {
         combateControl = GameObject.Find("CombateControl").GetComponent<CombateControl>();
-        if (tipo)
-        {
-            objetivos = GameObject.Find("enemigos");
+        objetivos = tipo
+            ? GameObject.Find("enemigos")
+            : GameObject.Find("players");
 
-        }
-        else
-        {
-            objetivos = GameObject.Find("players");
-        }
         if (data != null)
             vidaActual = data.vidaMaxima;
     }
 
     public void Atacar(bool sinDaño = false)
     {
-        StartCoroutine(AnimAtaque());
+        // Sin animación de movimiento
         if (tipo) objetivo = combateControl.EnemySelect;
         else objetivo = combateControl.PlayerSelect;
-        if (combateControl.cantidadEnemigos >= 0 && combateControl.cantidadPlayers >= 0)
+
+        if (combateControl.cantidadEnemigos > 0 && combateControl.cantidadPlayers > 0)
         {
             if (!sinDaño)
                 objetivos.transform.GetChild(objetivo).GetComponent<Character>().Damage(TirarAtaque(0));
             else
-                Debug.Log("Ataque sin daño — solo animación");
+                Debug.Log("Ataque sin daño");
         }
     }
 
     public void Damage(int damage)
     {
-        // Aplicar defensa
         int dañoFinal = Mathf.RoundToInt(damage * (1f - data.defensa / 100f));
         vidaActual -= dañoFinal;
         Debug.Log($"{data.nombrePersonaje} recibió {damage} → {dañoFinal} tras defensa ({data.defensa}%)");
 
-        StartCoroutine(AnimDamage(dañoFinal));
+        StartCoroutine(AnimDamage());
+
         if (vidaActual <= 0)
         {
             if (tipo) combateControl.cantidadEnemigos--;
@@ -72,21 +65,17 @@ public class Character : MonoBehaviour
             for (int i = 0; i < dado.cantidadDados; i++)
                 total += Random.Range(1, dado.caras + 1);
 
-        // Aplicar fuerza
         int totalConFuerza = Mathf.RoundToInt(total * (1f + data.fuerza / 100f));
-        Debug.Log($"{data.nombrePersonaje} usó {data.ataques[indiceAtaque].nombreAtaque}: {total} base → {totalConFuerza} con fuerza");
+        Debug.Log($"{data.nombrePersonaje} usó {data.ataques[indiceAtaque].nombreAtaque}: {total} → {totalConFuerza}");
         return totalConFuerza;
     }
 
     void SoltarLoot()
     {
         foreach (var item in data.lootPosible)
-        {
             if (Random.value <= item.probabilidad)
                 Inventario.Instance.AgregarItem(item.nombreItem);
-        }
     }
-
 
     Coroutine titilarCoroutine;
     public void Select(bool activo)
@@ -98,7 +87,6 @@ public class Character : MonoBehaviour
         else
         {
             if (titilarCoroutine != null) StopCoroutine(titilarCoroutine);
-            // Restaurar todos los renderers al apagar
             foreach (var r in GetComponentsInChildren<SpriteRenderer>())
                 r.enabled = true;
         }
@@ -114,21 +102,11 @@ public class Character : MonoBehaviour
         }
     }
 
-    IEnumerator AnimAtaque()
-    {
-        float mov = 0.3f;
-        if (!tipo) mov *= 1;
-        transform.position = new Vector3(transform.position.x + mov, transform.position.y, transform.position.z);
-        yield return new WaitForSecondsRealtime(0.2f);
-        transform.position = new Vector3(transform.position.x - mov, transform.position.y, transform.position.z);
-    }
-
-    IEnumerator AnimDamage(float damage)
+    IEnumerator AnimDamage()
     {
         SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
         foreach (var r in renderers) r.enabled = false;
         yield return new WaitForSecondsRealtime(0.5f);
         foreach (var r in renderers) r.enabled = true;
     }
-
 }
