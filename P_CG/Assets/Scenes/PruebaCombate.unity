@@ -1384,9 +1384,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975341669}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 49.22857, y: -97.707596, z: -9720}
-  m_LocalScale: {x: 108, y: 108, z: 108}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1725387889}
@@ -2069,7 +2069,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 136272143}
         m_TargetAssemblyTypeName: CombateControl, Assembly-CSharp
-        m_MethodName: IniciarCombate
+        m_MethodName: Atacar
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2371,8 +2371,8 @@ RectTransform:
   m_Children:
   - {fileID: 1728822415}
   - {fileID: 1436031410}
-  - {fileID: 975341670}
   - {fileID: 1454808140}
+  - {fileID: 975341670}
   m_Father: {fileID: 136272142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

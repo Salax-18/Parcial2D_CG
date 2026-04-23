@@ -24,14 +24,23 @@ public class CombateUI : MonoBehaviour
     public void MostrarAtaques(CharacterData data, System.Action<int> onAtaqueElegido)
     {
         panelAtaques.SetActive(true);
-
         foreach (var btn in botonesAtaque) btn.gameObject.SetActive(false);
 
-        for (int i = 0; i < data.ataques.Length && i < botonesAtaque.Length; i++)
+        int cantidad = Mathf.Min(data.ataques.Length, botonesAtaque.Length);
+        for (int i = 0; i < cantidad; i++)
         {
             int indice = i;
             botonesAtaque[i].gameObject.SetActive(true);
-            textosAtaque[i].text = data.ataques[i].nombreAtaque;
+
+            // Construir descripción de dados: "2d6 + 1d4" etc.
+            string dadosDesc = "";
+            foreach (var dado in data.ataques[i].dados)
+            {
+                if (dadosDesc != "") dadosDesc += " + ";
+                dadosDesc += $"{dado.cantidadDados}d{dado.caras}";
+            }
+            textosAtaque[i].text = $"{data.ataques[i].nombreAtaque}\n<size=70%>{dadosDesc}</size>";
+
             botonesAtaque[i].onClick.RemoveAllListeners();
             botonesAtaque[i].onClick.AddListener(() => {
                 OcultarAtaques();
