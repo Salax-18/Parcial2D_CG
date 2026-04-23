@@ -1,7 +1,8 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CombateControl : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class CombateControl : MonoBehaviour
     public int EnemySelect, PlayerSelect;
     public GameObject enemigos, players;
     bool turno = true;
+    bool resolviendoTurno = false;
 
     private void Start()
     {
@@ -20,13 +22,26 @@ public class CombateControl : MonoBehaviour
     {
         if (cantidadEnemigos >= 0)
         {
-            enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+            {
+                enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
                 EnemySelect--;
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+                EnemySelect = Mathf.Clamp(EnemySelect, 0, cantidadEnemigos - 1);
+                enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
+            }
+            if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+            {
+                enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
                 EnemySelect++;
-            EnemySelect = Mathf.Clamp(EnemySelect, 0, cantidadEnemigos);
-            enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
+                EnemySelect = Mathf.Clamp(EnemySelect, 0, cantidadEnemigos - 1);
+                enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
+            }
+        }
+
+        if (turno && !resolviendoTurno && Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            resolviendoTurno = true;
+            StartCoroutine(ResolverIniciativa());
         }
     }
 
@@ -64,5 +79,34 @@ public class CombateControl : MonoBehaviour
             yield return new WaitForSecondsRealtime(1f);
         }
         turno = true;
+    }
+
+    IEnumerator ResolverIniciativa()
+    {
+        int dadoPlayer, dadoEnemigo;
+
+        // Repetir en caso de empate
+        do
+        {
+            dadoPlayer = Random.Range(1, 11);
+            dadoEnemigo = Random.Range(1, 11);
+            Debug.Log($"Player tiró: {dadoPlayer} | Enemigo tiró: {dadoEnemigo}");
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
+        while (dadoPlayer == dadoEnemigo);
+
+        if (dadoPlayer > dadoEnemigo)
+        {
+            Debug.Log("Player ataca primero");
+            Atacar(); // turno del player primero
+        }
+        else
+        {
+            Debug.Log("Enemigo ataca primero");
+            StartCoroutine(AtaqueEnemigos()); // enemigos van primero
+                                              // después del ataque enemigo, el player ataca
+        }
+
+        resolviendoTurno = false;
     }
 }
