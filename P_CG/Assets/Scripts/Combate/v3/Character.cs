@@ -7,11 +7,9 @@ public class Character : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     GameObject objetivos;
     CombateControl combateControl;
-    public GameObject select;
-    public SpriteRenderer sr;
 
-    public int vida;
-    public int ataque;
+    public CharacterData data;
+    public int vidaActual;
     int objetivo;
 
     public bool tipo;
@@ -28,6 +26,8 @@ public class Character : MonoBehaviour
         {
             objetivos = GameObject.Find("Players");
         }
+        if (data != null)
+            vidaActual = data.vidaMaxima;
     }
 
 
@@ -37,25 +37,77 @@ public class Character : MonoBehaviour
         if (tipo) objetivo = combateControl.EnemySelect;
         else objetivo = combateControl.PlayerSelect;
         if (combateControl.cantidadEnemigos >= 0 && combateControl.cantidadPlayers >= 0)
-            objetivos.transform.GetChild(objetivo).GetComponent<Character>().Damage(ataque);
+            objetivos.transform.GetChild(objetivo).GetComponent<Character>().Damage(TirarAtaque(0));
     }
 
     public void Damage(int damage)
     {
-        vida -= damage;
-        StartCoroutine(AnimDamage(ataque));
-        if (vida <= 0)
+        // Aplicar defensa
+        int dañoFinal = Mathf.RoundToInt(damage * (1f - data.defensa / 100f));
+        vidaActual -= dañoFinal;
+        Debug.Log($"{data.nombrePersonaje} recibió {damage} → {dañoFinal} tras defensa ({data.defensa}%)");
+
+        StartCoroutine(AnimDamage(dañoFinal));
+        if (vidaActual <= 0)
         {
             if (tipo) combateControl.cantidadEnemigos--;
             else combateControl.cantidadPlayers--;
+
+            if (tipo && data != null) SoltarLoot();
             Destroy(gameObject);
         }
     }
 
-
-    public void Select(bool select)
+    public int TirarAtaque(int indiceAtaque)
     {
-        this.select.SetActive(select);
+        if (data == null || data.ataques.Length == 0) return 0;
+        indiceAtaque = Mathf.Clamp(indiceAtaque, 0, data.ataques.Length - 1);
+
+        int total = 0;
+        foreach (var dado in data.ataques[indiceAtaque].dados)
+            for (int i = 0; i < dado.cantidadDados; i++)
+                total += Random.Range(1, dado.caras + 1);
+
+        // Aplicar fuerza
+        int totalConFuerza = Mathf.RoundToInt(total * (1f + data.fuerza / 100f));
+        Debug.Log($"{data.nombrePersonaje} usó {data.ataques[indiceAtaque].nombreAtaque}: {total} base → {totalConFuerza} con fuerza");
+        return totalConFuerza;
+    }
+
+    void SoltarLoot()
+    {
+        foreach (var item in data.lootPosible)
+        {
+            if (Random.value <= item.probabilidad)
+                Debug.Log($"¡{data.nombrePersonaje} soltó: {item.nombreItem}!");
+        }
+    }
+
+
+    Coroutine titilarCoroutine;
+    public void Select(bool activo)
+    {
+        if (activo)
+        {
+            titilarCoroutine = StartCoroutine(TitilarLoop());
+        }
+        else
+        {
+            if (titilarCoroutine != null) StopCoroutine(titilarCoroutine);
+            // Restaurar todos los renderers al apagar
+            foreach (var r in GetComponentsInChildren<SpriteRenderer>())
+                r.enabled = true;
+        }
+    }
+
+    IEnumerator TitilarLoop()
+    {
+        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+        while (true)
+        {
+            foreach (var r in renderers) r.enabled = !r.enabled;
+            yield return new WaitForSecondsRealtime(0.3f);
+        }
     }
 
     IEnumerator AnimAtaque()
@@ -69,8 +121,10 @@ public class Character : MonoBehaviour
 
     IEnumerator AnimDamage(float damage)
     {
-        sr.enabled = !sr.enabled;
+        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+        foreach (var r in renderers) r.enabled = false;
         yield return new WaitForSecondsRealtime(0.5f);
+        foreach (var r in renderers) r.enabled = true;
     }
 
 }
