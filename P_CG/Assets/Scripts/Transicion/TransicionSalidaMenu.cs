@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class TransicionEscena : MonoBehaviour
+
+public class TransicionSalidaMenu : MonoBehaviour
 {
     private Animator animator;
 
@@ -28,9 +29,7 @@ public class TransicionEscena : MonoBehaviour
 
        yield return new WaitForSeconds(animacionFinal.length);
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 
-
-    // Update is called once per frame
 }
