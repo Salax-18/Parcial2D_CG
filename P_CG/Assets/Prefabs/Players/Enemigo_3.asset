@@ -22,5 +22,15 @@ MonoBehaviour:
     dados:
     - cantidadDados: 1
       caras: 10
-  esEnemigo: 0
-  lootPosible: []
+  esEnemigo: 1
+  lootPosible:
+  - nombreItem: "poci\xF3n"
+    probabilidad: 1
+  - nombreItem: "poci\xF3n"
+    probabilidad: 0.75
+  - nombreItem: "poci\xF3n"
+    probabilidad: 0.5
+  - nombreItem: "poci\xF3n"
+    probabilidad: 0.25
+  - nombreItem: 250 monedas
+    probabilidad: 1
