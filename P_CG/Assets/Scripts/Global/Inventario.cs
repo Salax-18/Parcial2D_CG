@@ -5,6 +5,10 @@ public class Inventario : MonoBehaviour
 {
     public static Inventario Instance;
 
+    [Header("Configuración UI")]
+    public GameObject panelInventario; // Arrastra tu panel de UI aquí
+    private bool estaAbierto = false;
+
     private Dictionary<string, int> items = new Dictionary<string, int>();
 
     private void Awake()
@@ -15,6 +19,19 @@ public class Inventario : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+        // Detecta la tecla Q para abrir/cerrar
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (panelInventario != null)
+            {
+                estaAbierto = !estaAbierto;
+                panelInventario.SetActive(estaAbierto);
+            }
+        }
     }
 
     public void AgregarItem(string nombreItem)
@@ -29,11 +46,7 @@ public class Inventario : MonoBehaviour
         Debug.Log($"Inventario: +{cantidad} {nombre} (total: {items[nombre]})");
     }
 
-    public int ObtenerCantidad(string nombre)
-    {
-        return items.ContainsKey(nombre) ? items[nombre] : 0;
-    }
-
+    public int ObtenerCantidad(string nombre) => items.ContainsKey(nombre) ? items[nombre] : 0;
     public Dictionary<string, int> ObtenerTodo() => items;
 
     private (string nombre, int cantidad) ParsearItem(string input)
@@ -46,7 +59,6 @@ public class Inventario : MonoBehaviour
             string nombre = string.Join(" ", partes, 1, partes.Length - 1);
             return (nombre, cantidad);
         }
-
         return (input, 1);
     }
 }
