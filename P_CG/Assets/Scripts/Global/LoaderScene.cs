@@ -12,7 +12,7 @@ public class LoaderScene : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Players"))
+        if (collision.CompareTag("Player"))
         {
             SceneManager.LoadScene("Bosque");
         }
