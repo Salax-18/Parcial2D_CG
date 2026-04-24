@@ -45,19 +45,15 @@ public class Inventario : MonoBehaviour
 
     private void Update()
     {
+        // Detecta la tecla Q para abrir/cerrar
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            estaAbierto = !estaAbierto;
-            panelInventario.SetActive(estaAbierto);
-            if (estaAbierto) RefrescarUI();
+            if (panelInventario != null)
+            {
+                estaAbierto = !estaAbierto;
+                panelInventario.SetActive(estaAbierto);
+            }
         }
-    }
-
-    public void RefrescarUI()
-    {
-        if (panelInventario == null) return;
-        MochilaSlot[] slots = panelInventario.GetComponentsInChildren<MochilaSlot>();
-        foreach (MochilaSlot slot in slots) slot.ActualizarSlot();
     }
 
     public void AgregarItem(string nombreItem)
