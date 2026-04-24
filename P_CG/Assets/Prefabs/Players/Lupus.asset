@@ -10,21 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fc99e81fbe80434fa8ea222a9690fde, type: 3}
-  m_Name: Enemigo_4
+  m_Name: Lupus
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  nombrePersonaje: Daga Oscura
+  nombrePersonaje: Lupus
   icono: {fileID: 0}
-  vidaMaxima: 50
-  defensa: 21
-  fuerza: 18
+  vidaMaxima: 100
+  defensa: 82
+  fuerza: 20
   ataques:
   - nombreAtaque: Ataque 1
     dados:
     - cantidadDados: 1
-      caras: 10
+      caras: 4
+    - cantidadDados: 1
+      caras: 6
+  - nombreAtaque: Ataque 2
+    dados:
+    - cantidadDados: 2
+      caras: 6
   esEnemigo: 1
   lootPosible:
-  - nombreItem: "poci\xF3n"
+  - nombreItem: 1000 monedas
+    probabilidad: 0.5
+  - nombreItem: 200 monedas
     probabilidad: 1
-  - nombreItem: 350 monedas
-    probabilidad: 0
+  - nombreItem: "B\xE1culo Maldito"
+    probabilidad: 1

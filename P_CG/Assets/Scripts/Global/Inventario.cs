@@ -5,7 +5,7 @@ public class Inventario : MonoBehaviour
 {
     public static Inventario Instance;
 
-    [Header("Configuración UI")]
+    [Header("Configuraciï¿½n UI")]
     public GameObject panelInventario;
     private bool estaAbierto = false;
 
@@ -16,7 +16,7 @@ public class Inventario : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            // OJO: Esto asegura que el objeto sea raíz para que DontDestroyOnLoad funcione
+            // OJO: Esto asegura que el objeto sea raï¿½z para que DontDestroyOnLoad funcione
             transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
         }
@@ -46,13 +46,13 @@ public class Inventario : MonoBehaviour
     public void AgregarItem(string nombreItem)
     {
         var (nombre, cantidad) = ParsearItem(nombreItem);
-        // Guardamos siempre en minúsculas y sin espacios extra
+        // Guardamos siempre en minï¿½sculas y sin espacios extra
         string clave = nombre.ToLower().Trim();
 
         if (items.ContainsKey(clave)) items[clave] += cantidad;
         else items[clave] = cantidad;
 
-        Debug.Log($"Guardado con éxito: '{clave}' | Total: {items[clave]}");
+        Debug.Log($"Guardado con ï¿½xito: '{clave}' | Total: {items[clave]}");
         if (estaAbierto) RefrescarUI();
     }
 

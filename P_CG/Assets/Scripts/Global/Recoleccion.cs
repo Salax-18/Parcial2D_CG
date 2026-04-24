@@ -18,7 +18,7 @@ public class ItemRecolectable : MonoBehaviour, IInteractable
         // Solo enviamos el nombre porque tu inventario ya tiene el "ParsearItem"
         Inventario.Instance.AgregarItem(nombreItem);
 
-        // Esta línea DEBE ejecutarse para que el objeto desaparezca
+        // Esta lï¿½nea DEBE ejecutarse para que el objeto desaparezca
         Destroy(gameObject);
     }
 }
