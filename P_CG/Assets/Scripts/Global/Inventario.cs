@@ -43,6 +43,19 @@ public class Inventario : MonoBehaviour
         foreach (MochilaSlot slot in slots) slot.ActualizarSlot();
     }
 
+    private void Update()
+    {
+        // Detecta la tecla Q para abrir/cerrar
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (panelInventario != null)
+            {
+                estaAbierto = !estaAbierto;
+                panelInventario.SetActive(estaAbierto);
+            }
+        }
+    }
+
     public void AgregarItem(string nombreItem)
     {
         var (nombre, cantidad) = ParsearItem(nombreItem);
@@ -56,6 +69,8 @@ public class Inventario : MonoBehaviour
         if (estaAbierto) RefrescarUI();
     }
 
+    public int ObtenerCantidad(string nombre) => items.ContainsKey(nombre) ? items[nombre] : 0;
+    public Dictionary<string, int> ObtenerTodo() => items;
     public int ObtenerCantidad(string nombre)
     {
         string clave = nombre.ToLower().Trim();
