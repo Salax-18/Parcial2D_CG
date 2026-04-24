@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tavern.unity
     guid: 8bc06387b32f9e245ab7486e4f137df9
+  - enabled: 1
+    path: Assets/Scenes/Bosque.unity
+    guid: fb7fa059be338054a85dbcb013e49e45
+  - enabled: 1
+    path: Assets/Scenes/Cueva.unity
+    guid: f83d97e7de1fd5a40bb40bbd8d3dd418
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
