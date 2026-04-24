@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   nombrePersonaje: Capita
   icono: {fileID: 0}
-  vidaMaxima: 50
+  vidaMaxima: 100
   defensa: 13
   fuerza: 15
   ataques:

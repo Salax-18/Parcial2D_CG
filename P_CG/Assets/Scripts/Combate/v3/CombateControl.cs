@@ -8,26 +8,19 @@ public class CombateControl : MonoBehaviour
     public int EnemySelect, PlayerSelect;
     public GameObject enemigos, players;
 
-    // private → protected para que BatallaFinalControl pueda accederlos
-    protected bool esperandoInputJugador = false;
-    protected bool resolviendoTurno = false;
-    protected bool combateIniciado = false;
-    protected bool playerFuePrimero = false;
+    private bool esperandoInputJugador = false;
+    private bool resolviendoTurno = false;
+    private bool combateIniciado = false;
+    private bool playerFuePrimero = false;
 
     private void Start()
     {
-        StartCoroutine(InicializarCoroutine());
+        StartCoroutine(Inicializar());
     }
 
-    IEnumerator InicializarCoroutine()
+    IEnumerator Inicializar()
     {
         yield return null;
-        Inicializar(); // ← delega a método virtual
-    }
-
-    // virtual para que BatallaFinalControl pueda buscar Lupus/Helena por nombre
-    protected virtual void Inicializar()
-    {
         players.transform.GetChild(PlayerSelect).GetComponent<Character>().Select(true);
         enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
         esperandoInputJugador = true;
@@ -52,22 +45,7 @@ public class CombateControl : MonoBehaviour
         }
     }
 
-    public void SeleccionarEnemigoArriba()
-    {
-        if (!esperandoInputJugador || cantidadEnemigos <= 0) return;
-        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
-        EnemySelect = Mathf.Clamp(EnemySelect + 1, 0, cantidadEnemigos - 1);
-        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
-    }
-
-    public void SeleccionarEnemigoAbajo()
-    {
-        if (!esperandoInputJugador || cantidadEnemigos <= 0) return;
-        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
-        EnemySelect = Mathf.Clamp(EnemySelect - 1, 0, cantidadEnemigos - 1);
-        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
-    }
-
+    // ── Botón Atacar ─────────────────────────────────────────────────────────
     public void Atacar()
     {
         if (!esperandoInputJugador || resolviendoTurno) return;
@@ -89,6 +67,23 @@ public class CombateControl : MonoBehaviour
         }
     }
 
+    public void SeleccionarEnemigoArriba()
+    {
+        if (!esperandoInputJugador || cantidadEnemigos <= 0) return;
+        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
+        EnemySelect = Mathf.Clamp(EnemySelect + 1, 0, cantidadEnemigos - 1);
+        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
+    }
+
+    public void SeleccionarEnemigoAbajo()
+    {
+        if (!esperandoInputJugador || cantidadEnemigos <= 0) return;
+        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(false);
+        EnemySelect = Mathf.Clamp(EnemySelect - 1, 0, cantidadEnemigos - 1);
+        enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Select(true);
+    }
+
+    // ── Iniciativa ───────────────────────────────────────────────────────────
     IEnumerator ResolverIniciativaYTurno()
     {
         int dadoPlayer, dadoEnemigo;
@@ -138,14 +133,17 @@ public class CombateControl : MonoBehaviour
         VerificarYAvanzar();
     }
 
+    // ── Ataque del player: primero elige, luego tira dados ───────────────────
     IEnumerator AtaquePlayer()
     {
         Character player = players.transform.GetChild(PlayerSelect).GetComponent<Character>();
 
+        // 1. Primero el jugador elige su ataque
         int ataqueElegido = -1;
         CombateUI.Instance.MostrarAtaques(player.data, (indice) => { ataqueElegido = indice; });
         yield return new WaitUntil(() => ataqueElegido >= 0);
 
+        // 2. Dado de éxito
         int dado = Random.Range(1, 11);
         Debug.Log($"Player {PlayerSelect} — dado de éxito: {dado}");
         yield return new WaitForSecondsRealtime(0.5f);
@@ -153,12 +151,13 @@ public class CombateControl : MonoBehaviour
         if (dado < 4)
         {
             Debug.Log($"Player {PlayerSelect} falló (dado {dado} < 4)");
-            CombateUI.Instance.MostrarResultado($"<b>¡Fallo!</b>\nDado: {dado}");
+            CombateUI.Instance.MostrarResultado($"<b>¡Fallo!</b>\nDado: {dado} — necesitabas 4 o más");
             yield return new WaitForSecondsRealtime(1.5f);
             CombateUI.Instance.OcultarResultado();
             yield break;
         }
 
+        // 3. Dados de ataque combinados
         int d1 = Random.Range(1, 10);
         int d2 = Random.Range(1, 10);
         int combinado = d1 * 10 + d2;
@@ -167,18 +166,20 @@ public class CombateControl : MonoBehaviour
 
         if (combinado <= 50 || combinado >= 90)
         {
-            Debug.Log($"Player {PlayerSelect} — fuera de rango ({combinado})");
+            Debug.Log($"Player {PlayerSelect} — fuera de rango ({combinado}), ataque fallido");
             CombateUI.Instance.MostrarResultado($"<b>¡Sin efecto!</b>\nCombinado: {combinado}");
             yield return new WaitForSecondsRealtime(1.5f);
             CombateUI.Instance.OcultarResultado();
             yield break;
         }
 
-        Debug.Log($"Player {PlayerSelect} — ataque exitoso ({combinado})");
+        // 4. Ataque exitoso — calcular y aplicar daño
+        Debug.Log($"Player {PlayerSelect} — ataque exitoso ({combinado}), calculando daño...");
         yield return StartCoroutine(AplicarDano(player, ataqueElegido));
     }
 
-    protected IEnumerator AplicarDano(Character player, int ataqueElegido)
+    // ── Aplicar daño con el ataque elegido ───────────────────────────────────
+    IEnumerator AplicarDano(Character player, int ataqueElegido)
     {
         var ataque = player.data.ataques[ataqueElegido];
         string log = $"<b>{ataque.nombreAtaque}</b>\n";
@@ -192,19 +193,20 @@ public class CombateControl : MonoBehaviour
                 log += $"d{dado.caras}: {resultado}\n";
             }
 
-        int totalConFuerza = Mathf.RoundToInt(totalBase * (1f + player.data.fuerza / 1000f));
-        log += $"Base: {totalBase} | Fuerza → <b>{totalConFuerza}</b>";
+        int totalConFuerza = Mathf.RoundToInt(totalBase * (1f + player.data.fuerza / 100f));
+        log += $"Base: {totalBase} | Fuerza +{player.data.fuerza}% → <b>{totalConFuerza}</b>";
 
         CombateUI.Instance.MostrarResultado(log);
         yield return new WaitForSecondsRealtime(2f);
         CombateUI.Instance.OcultarResultado();
 
+        // Aplicar al enemigo seleccionado si sigue vivo
         if (EnemySelect < cantidadEnemigos)
             enemigos.transform.GetChild(EnemySelect).GetComponent<Character>().Damage(totalConFuerza);
     }
 
-    // virtual para que BatallaFinalControl sobreescriba el comportamiento del enemigo
-    protected virtual IEnumerator AtaqueEnemigo(int idx)
+    // ── Ataque del enemigo ───────────────────────────────────────────────────
+    IEnumerator AtaqueEnemigo(int idx)
     {
         if (idx >= cantidadEnemigos) yield break;
         Transform t = enemigos.transform.GetChild(idx);
@@ -240,8 +242,8 @@ public class CombateControl : MonoBehaviour
         }
     }
 
-    // virtual para que BatallaFinalControl cargue la escena de victoria
-    protected virtual void VerificarYAvanzar()
+    // ── Verificar fin / avanzar player ───────────────────────────────────────
+    void VerificarYAvanzar()
     {
         if (cantidadEnemigos <= 0)
         {
@@ -249,6 +251,7 @@ public class CombateControl : MonoBehaviour
             return;
         }
 
+        // Apagar titileo del player actual antes de avanzar
         if (PlayerSelect < cantidadPlayers)
             players.transform.GetChild(PlayerSelect).GetComponent<Character>().Select(false);
 
