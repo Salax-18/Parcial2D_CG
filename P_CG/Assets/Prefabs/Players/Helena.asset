@@ -10,21 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fc99e81fbe80434fa8ea222a9690fde, type: 3}
-  m_Name: Enemigo_4
+  m_Name: Helena
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  nombrePersonaje: Daga Oscura
+  nombrePersonaje: Helena
   icono: {fileID: 0}
-  vidaMaxima: 50
-  defensa: 21
+  vidaMaxima: 75
+  defensa: 35
   fuerza: 18
   ataques:
   - nombreAtaque: Ataque 1
     dados:
     - cantidadDados: 1
-      caras: 10
+      caras: 8
+    - cantidadDados: 1
+      caras: 6
   esEnemigo: 1
   lootPosible:
-  - nombreItem: "poci\xF3n"
+  - nombreItem: Manzana Dorada
     probabilidad: 1
-  - nombreItem: 350 monedas
-    probabilidad: 0
+  - nombreItem: "Poci\xF3n de Debilidad"
+    probabilidad: 1
