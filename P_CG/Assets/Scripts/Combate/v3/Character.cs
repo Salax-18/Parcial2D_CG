@@ -11,15 +11,18 @@ public class Character : MonoBehaviour
     int objetivo;
     public bool tipo;
 
+    public BarraVida barraVida; // asignar en el Inspector
+
     private void Start()
     {
         combateControl = GameObject.Find("CombateControl").GetComponent<CombateControl>();
-        objetivos = tipo
-            ? GameObject.Find("enemigos")
-            : GameObject.Find("players");
+        objetivos = tipo ? GameObject.Find("enemigos") : GameObject.Find("players");
 
         if (data != null)
+        {
             vidaActual = data.vidaMaxima;
+            barraVida?.Actualizar(vidaActual, data.vidaMaxima); // inicializar barra
+        }
     }
 
     public void Atacar(bool sinDaño = false)
@@ -37,19 +40,21 @@ public class Character : MonoBehaviour
         }
     }
 
+
     public void Damage(int damage)
     {
         int dañoFinal = Mathf.RoundToInt(damage * (1f - data.defensa / 100f));
         vidaActual -= dañoFinal;
+        vidaActual = Mathf.Max(vidaActual, 0); // nunca menor a 0
         Debug.Log($"{data.nombrePersonaje} recibió {damage} → {dañoFinal} tras defensa ({data.defensa}%)");
 
+        barraVida?.Actualizar(vidaActual, data.vidaMaxima); // actualizar barra
         StartCoroutine(AnimDamage());
 
         if (vidaActual <= 0)
         {
             if (tipo) combateControl.cantidadEnemigos--;
             else combateControl.cantidadPlayers--;
-
             if (tipo && data != null) SoltarLoot();
             Destroy(gameObject);
         }

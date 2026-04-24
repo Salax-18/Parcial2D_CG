@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 4d1757ef43fc05546bb67f99d1098af5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3150531112793902683
+    second: ElegirEnemigo_0
+  - first:
+      213: -7964334295785201150
+    second: ElegirEnemigo_1
+  - first:
+      213: 5148560959999885327
+    second: ElegirEnemigo_2
+  - first:
+      213: 7489262328625250356
+    second: ElegirEnemigo_3
+  - first:
+      213: -2468184547611521091
+    second: ElegirEnemigo_4
+  - first:
+      213: 4627517645217934535
+    second: ElegirEnemigo_5
+  - first:
+      213: 3669862049303626057
+    second: ElegirEnemigo_6
+  - first:
+      213: -1181063654828226258
+    second: ElegirEnemigo_7
+  - first:
+      213: -9101007151077755413
+    second: ElegirEnemigo_8
+  - first:
+      213: 8483217778537867049
+    second: ElegirEnemigo_9
+  - first:
+      213: -3020010422107956347
+    second: ElegirEnemigo_10
+  - first:
+      213: 6975232913682578229
+    second: ElegirEnemigo_11
+  - first:
+      213: -7155462277007473512
+    second: ElegirEnemigo_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ElegirEnemigo_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 660
+        width: 224
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5e85e7da5fe8bb20800000000000000
+      internalID: 3150531112793902683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_1
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 660
+        width: 224
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2022343a720097190800000000000000
+      internalID: -7964334295785201150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_2
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 660
+        width: 224
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f00cc353aec537740800000000000000
+      internalID: 5148560959999885327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_3
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 660
+        width: 224
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4304c6778643fe760800000000000000
+      internalID: 7489262328625250356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_4
+      rect:
+        serializedVersion: 2
+        x: 1085
+        y: 660
+        width: 136
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbfc18f1b3f3fbdd0800000000000000
+      internalID: -2468184547611521091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_5
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 660
+        width: 225
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cc211bd7ce383040800000000000000
+      internalID: 4627517645217934535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_6
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 217
+        width: 224
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9410e6f0718fde230800000000000000
+      internalID: 3669862049303626057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_7
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 217
+        width: 224
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e29c6dc0dd40c9fe0800000000000000
+      internalID: -1181063654828226258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_8
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 217
+        width: 224
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be578bd173ab2b180800000000000000
+      internalID: -9101007151077755413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_9
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 217
+        width: 224
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9272702af917ab570800000000000000
+      internalID: 8483217778537867049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_10
+      rect:
+        serializedVersion: 2
+        x: 1085
+        y: 217
+        width: 136
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58b17449584c616d0800000000000000
+      internalID: -3020010422107956347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_11
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 217
+        width: 225
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53bb9ade0610dc060800000000000000
+      internalID: 6975232913682578229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ElegirEnemigo_12
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 217
+        width: 225
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 894034768f0b2bc90800000000000000
+      internalID: -7155462277007473512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ElegirEnemigo_0: 3150531112793902683
+      ElegirEnemigo_1: -7964334295785201150
+      ElegirEnemigo_10: -3020010422107956347
+      ElegirEnemigo_11: 6975232913682578229
+      ElegirEnemigo_12: -7155462277007473512
+      ElegirEnemigo_2: 5148560959999885327
+      ElegirEnemigo_3: 7489262328625250356
+      ElegirEnemigo_4: -2468184547611521091
+      ElegirEnemigo_5: 4627517645217934535
+      ElegirEnemigo_6: 3669862049303626057
+      ElegirEnemigo_7: -1181063654828226258
+      ElegirEnemigo_8: -9101007151077755413
+      ElegirEnemigo_9: 8483217778537867049
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
