@@ -43,7 +43,7 @@ public class Character : MonoBehaviour
 
     public void Damage(int damage)
     {
-        int dañoFinal = Mathf.RoundToInt(damage * (1f - data.defensa / 100f));
+        int dañoFinal = Mathf.RoundToInt(damage * (1f - data.defensa / 1000f));
         vidaActual -= dañoFinal;
         vidaActual = Mathf.Max(vidaActual, 0); // nunca menor a 0
         Debug.Log($"{data.nombrePersonaje} recibió {damage} → {dañoFinal} tras defensa ({data.defensa}%)");
