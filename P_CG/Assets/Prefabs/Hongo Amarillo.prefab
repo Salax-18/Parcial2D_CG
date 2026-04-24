@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2601442316536619696}
   m_Layer: 3
   m_Name: Hongo Amarillo
-  m_TagString: Untagged
+  m_TagString: Hongo Amarillo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b718dec37b6d5ad45b22cc0ca955123a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemRecolectable
-  nombreItem: 
+  nombreItem: Hongo Amarillo
   cantidad: 1
 --- !u!58 &2601442316536619696
 CircleCollider2D:
